@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Odin Library</title>
+</head>
+<body>
+    <!-- Modal -->
+<div id="container">
+    <div class="message-container">
+        <h2 class="message hidden">No book in the library, you can add if you want</h2>
+    </div>
+    <dialog id="bookModal">
+          <h3>Add New Book</h3>
+          <input type="text" id="titleInput" placeholder="Title" required>
+          <input type="text" id="authorInput" placeholder="Author" required>
+          <input type="number" id="pagesInput" placeholder="Pages" required>
+          <label for="isReadInput">Have you read it?</label required>
+          <select id="isReadInput">
+            <option value=true>YES</option>
+            <option value=false>NO</option>
+            </select>
+          <button id="addBook">Add Book</button>
+          <button id="cancel">Cancel</button>
+    </dialog>
+
+    <button type="button" id="openBookModal">ADD BOOK</button>
+    <div id="book-container">
+    </div>
+</div>
+
+    
+    <script src="index.js"></script>
+</body>
+</html>
