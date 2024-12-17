@@ -34,18 +34,20 @@ function Book (title, author, pages, isRead){
 
 // Populate library with dummy data
 
-const hobbit = new Book("Hobbit", "Ash", 200, false)
-const pokemon = new Book("Pokemon", "Brock", 250, false)
-const breakingBad = new Book("Breaking Bad", "Walter", 1000, true)
-const betterCallSaul = new Book("Better Call Saul", "Jimmy McGill", 400, true)
-const onePiece = new Book("One Piece", "Eichiro", 1500, true)
+const cowboyBebop = new Book("Cowboy Bebop", "Shinichiro Watanabe", 260, 'true')
+const bigBangTheory = new Book("Big Bang Theory", "Sheldon Cooper", 360, 'true')
+const breakingBad = new Book("Breaking Bad", "Walter White", 45, 'true')
+const betterCallSaul = new Book("Better Call Saul", "Jimmy McGill", 65, 'true')
+const theShining = new Book("The Shining", "Stephen King", 2, 'false')
+const onePiece = new Book("One Piece", "Eichiro", 1500, 'true')
 
 // Inserting objects to library
 
-addToBookToLibrary(hobbit);
-addToBookToLibrary(pokemon);
+addToBookToLibrary(cowboyBebop);
+addToBookToLibrary(bigBangTheory);
 addToBookToLibrary(breakingBad);
 addToBookToLibrary(betterCallSaul);
+addToBookToLibrary(theShining)
 addToBookToLibrary(onePiece);
 
 // Clear input fields

@@ -88,6 +88,12 @@
         font-family: Bookish;
         font-size: 20px;
     }
+    .delete-button:hover {
+        background-color: lightcoral;
+    }
+    .read-button:hover {
+        background-color: lightgreen;
+    }
 }
 
 #openBookModal {
