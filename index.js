@@ -14,22 +14,88 @@ const bookContainer = document.getElementById("book-container")
 
 
 // Library
-const myLibrary = [];
+const Library =(() => {
+    let myLibrary = [];
+
+    // Display books in the library
+    const showLibraryBooks = () => {
+        bookContainer.innerHTML = ""
+        Library.getLibrary().forEach((item, index) => {
+            const book = document.createElement('div')
+            book.className = 'book'
+            book.innerHTML = `
+            <h3>${item.title}</h3>
+            <p>Author: ${item.author}</p>
+            <p>Pages: ${item.pages}</p>
+            <button id=${index} class='read-button ${item.isRead ? 'done-reading':''}'>${item.isRead ? "DONE READING" : "NOT FINISHED READING"}</button>
+            <button id=${index} class='delete-button'> REMOVE THIS BOOK </button>
+            `
+            bookContainer.appendChild(book);
+        })
+        // message.classList.add('visible')
+        if (bookContainer.childElementCount != 0) {
+            message.style.display = "none"
+        } else {
+            message.style.display = "flex"
+        }
+
+        let bookReadButtons = document.getElementsByClassName('read-button')
+        Array.from(bookReadButtons).forEach(bookReadButton => {
+            bookReadButton.addEventListener('click', () => {
+                Library.getLibrary()[bookReadButton.id].toggleRead()
+                showLibraryBooks()
+
+            })
+        })
+
+        let bookDeleteButtons = document.getElementsByClassName('delete-button')
+        Array.from(bookDeleteButtons).forEach(bookDeleteButton => {
+            bookDeleteButton.addEventListener('click', () => {
+                Library.removeBook(bookDeleteButton.id)
+                bookDeleteButton.parentElement.remove()
+                showLibraryBooks()
+
+            })
+        })
+    }
+
+    const getLibrary = () => myLibrary;
+
+    // Add Book
+    const addBook = (book) => {
+        getLibrary().push(book)
+    }
+
+    
+    // Remove book
+    const removeBook = (bookId) => {
+        getLibrary().splice(bookId, 1)
+        
+    }
+
+    return {
+        getLibrary,
+        showLibraryBooks,
+        addBook,
+        removeBook
+    }
+})()
+
+
+
 
 // Book Constructor
-function Book (title, author, pages, isRead){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.isRead = isRead === 'true';
-    this.toggleRead = function() {
-        // if (this.isRead == true){
-        //     this.isRead = false
-        // } else {
-        //     this.isRead = true
-        // }
+class Book {
+    constructor (title, author, pages, isRead){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.isRead = isRead === 'true';
+    }
+    toggleRead() {
         this.isRead = !this.isRead
     }
+    
 }
 
 // Populate library with dummy data
@@ -43,12 +109,12 @@ const onePiece = new Book("One Piece", "Eichiro", 1500, 'true')
 
 // Inserting objects to library
 
-addToBookToLibrary(cowboyBebop);
-addToBookToLibrary(bigBangTheory);
-addToBookToLibrary(breakingBad);
-addToBookToLibrary(betterCallSaul);
-addToBookToLibrary(theShining)
-addToBookToLibrary(onePiece);
+Library.addBook(cowboyBebop);
+Library.addBook(bigBangTheory);
+Library.addBook(breakingBad);
+Library.addBook(betterCallSaul);
+Library.addBook(theShining)
+Library.addBook(onePiece);
 
 // Clear input fields
 function clearFields(){
@@ -69,71 +135,17 @@ cancel.addEventListener('click', () => {
     }
 )
 
-// functions for books
-
-// Add Book
-function addToBookToLibrary(book){
-    myLibrary.push(book)
-}
-
-// Remove book
-function removeBookToLibrary(bookId){
-    myLibrary.splice(bookId, 1)
-    
-}
-
 addBook.addEventListener('click', () => {
     const book = new Book(titleInput.value, authorInput.value, pagesInput.value, isReadInput.value)
-    addToBookToLibrary(book);
-    showLibraryBooks()
+    Library.addBook(book);
+    Library.showLibraryBooks()
     bookModal.close()
 })
 
 
-// Display books in the library
 
-function showLibraryBooks(){
-    bookContainer.innerHTML = ""
-    myLibrary.forEach((item, index) => {
-        const book = document.createElement('div')
-        book.className = 'book'
-        book.innerHTML = `
-        <h3>${item.title}</h3>
-        <p>Author: ${item.author}</p>
-        <p>Pages: ${item.pages}</p>
-        <button id=${index} class='read-button ${item.isRead ? 'done-reading':''}'>${item.isRead ? "DONE READING" : "NOT FINISHED READING"}</button>
-        <button id=${index} class='delete-button'> REMOVE THIS BOOK </button>
-        `
-        bookContainer.appendChild(book);
-    })
-    // message.classList.add('visible')
-    if (bookContainer.childElementCount != 0) {
-        message.style.display = "none"
-    } else {
-        message.style.display = "flex"
-    }
 
-    let bookReadButtons = document.getElementsByClassName('read-button')
-    Array.from(bookReadButtons).forEach(bookReadButton => {
-        bookReadButton.addEventListener('click', () => {
-            myLibrary[bookReadButton.id].toggleRead()
-            showLibraryBooks()
-
-        })
-    })
-
-    let bookDeleteButtons = document.getElementsByClassName('delete-button')
-    Array.from(bookDeleteButtons).forEach(bookDeleteButton => {
-        bookDeleteButton.addEventListener('click', () => {
-            removeBookToLibrary(bookDeleteButton.id)
-            bookDeleteButton.parentElement.remove()
-            showLibraryBooks()
-
-        })
-    })
-}
-
-showLibraryBooks()
+Library.showLibraryBooks()
 
 // Remove book from display
 
